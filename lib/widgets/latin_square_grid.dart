@@ -3,19 +3,37 @@ import '../models/latin_square.dart';
 
 /// A stateless widget that displays a Latin square in a grid format.
 ///
-/// The grid displays all 81 cells (9x9) with borders and centered numbers.
+/// The grid displays all 81 cells (9x9) with borders and centered numbers or colors.
 /// The widget is responsive and adapts to different screen sizes.
 class LatinSquareGrid extends StatelessWidget {
   /// The Latin square to display
   final LatinSquare square;
+  
+  /// Whether to display colors instead of numbers
+  final bool showColors;
 
   /// Creates a LatinSquareGrid widget.
   ///
   /// The [square] parameter must not be null and should be a valid 9x9 Latin square.
+  /// The [showColors] parameter determines whether to show colors (true) or numbers (false).
   const LatinSquareGrid({
     super.key,
     required this.square,
+    this.showColors = false,
   });
+  
+  /// Map each number (1-9) to a distinct color
+  static const Map<int, Color> _colorMap = {
+    1: Color(0xFFE53935), // Red
+    2: Color(0xFF1E88E5), // Blue
+    3: Color(0xFF43A047), // Green
+    4: Color(0xFFFB8C00), // Orange
+    5: Color(0xFF8E24AA), // Purple
+    6: Color(0xFFFFEB3B), // Yellow
+    7: Color(0xFF00ACC1), // Cyan
+    8: Color(0xFFD81B60), // Pink
+    9: Color(0xFF6D4C41), // Brown
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +69,7 @@ class LatinSquareGrid extends StatelessWidget {
                 final row = index ~/ 9;
                 final col = index % 9;
                 final value = square.valueAt(row, col);
+                final cellColor = _colorMap[value] ?? Colors.grey;
 
                 // T042: Add cell borders using Container with BoxDecoration
                 return Container(
@@ -59,18 +78,20 @@ class LatinSquareGrid extends StatelessWidget {
                       color: Colors.grey.shade400,
                       width: 1,
                     ),
-                    color: Colors.white,
+                    color: showColors ? cellColor : Colors.white,
                   ),
                   child: Center(
                     // T043: Style cell text (centered, bold, responsive font size)
-                    child: Text(
-                      '$value',
-                      style: TextStyle(
-                        fontSize: cellSize * 0.5,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
+                    child: showColors
+                        ? const SizedBox.shrink()
+                        : Text(
+                            '$value',
+                            style: TextStyle(
+                              fontSize: cellSize * 0.5,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
                   ),
                 );
               },
