@@ -33,11 +33,12 @@ This guarantees:
 
 ## Features
 
-- **Default Square**: Launches with starting order 1
-- **Custom Starting Order**: Input any number 1-9 to regenerate
-- **Input Validation**: Clear error messages for invalid inputs
-- **Responsive Grid**: Adapts to different screen sizes and orientations
-- **Instant Feedback**: Square regenerates immediately on valid input
+**Default Square**: Launches with starting order 1
+**Custom Starting Order**: Input any number 1-9 to regenerate
+**Input Validation**: Clear error messages for invalid inputs
+**Responsive Grid**: Adapts to different screen sizes and orientations
+**Instant Feedback**: Square regenerates immediately on valid input
+**Updated Heading**: The blue bar at the top of the page now displays "Latin Squares Demonstration" for clarity
 
 ## Setup Instructions
 
@@ -125,7 +126,7 @@ The app follows a **library-first design** principle:
 
 - **Grid Size**: Fixed 9x9 (not configurable)
 - **Values**: Numbers only (no symbols, letters, or custom values)
-- **Platforms**: Mobile only (iOS/Android)
+- **Platforms**: Mobile (iOS/Android) and Web (Flutter web)
 - **Storage**: No persistence (squares regenerated on restart)
 
 ## Performance

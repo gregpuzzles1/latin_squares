@@ -107,7 +107,7 @@ class _LatinSquareScreenState extends State<LatinSquareScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Latin Square Display'),
+        title: const Text('Latin Squares Demonstration'),
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(

@@ -194,7 +194,7 @@ Flutter mobile project structure (from plan.md):
 ### UI Polish
 
 - [x] T083 [P] Add Material 3 theme configuration (colorScheme from seed color) - already implemented
-- [x] T084 [P] Add AppBar with descriptive title - "Latin Square Display"
+- [x] T084 [P] Add AppBar with descriptive title - "Latin Squares Demonstration" (updated for clarity, now consistent across web and mobile)
 - [x] T085 [P] Improve spacing and padding for better visual hierarchy - 16px padding, spacing
 - [x] T086 [P] Add semantic labels for accessibility (basic text labels in place)
 - [ ] T087 Test app on physical devices (iOS and Android) - requires device/emulator
