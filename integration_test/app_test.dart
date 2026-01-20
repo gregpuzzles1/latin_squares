@@ -14,15 +14,18 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify app title
-      expect(find.text('Latin Square Display'), findsOneWidget);
+      expect(find.text('Latin Squares Display'), findsOneWidget);
 
       // Verify starting order input is visible
       expect(find.text('Starting Order: '), findsOneWidget);
 
+      final gridViewFinder = find.byType(GridView);
+      expect(gridViewFinder, findsOneWidget);
+
       // Verify grid is displayed with numbers 1-9
       for (int i = 1; i <= 9; i++) {
         expect(
-          find.text('$i'),
+          find.descendant(of: gridViewFinder, matching: find.text('$i')),
           findsNWidgets(9),
           reason: 'Number $i should appear 9 times in default square',
         );
@@ -47,10 +50,13 @@ void main() {
       await tester.enterText(textFieldFinder, '5');
       await tester.pumpAndSettle();
 
+      final gridViewFinder = find.byType(GridView);
+      expect(gridViewFinder, findsOneWidget);
+
       // Verify square regenerated (still has 1-9, each appearing 9 times)
       for (int i = 1; i <= 9; i++) {
         expect(
-          find.text('$i'),
+          find.descendant(of: gridViewFinder, matching: find.text('$i')),
           findsNWidgets(9),
           reason: 'Number $i should appear 9 times after regeneration',
         );
@@ -64,7 +70,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify GridView is present
-      expect(find.byType(GridView), findsOneWidget);
+      final gridViewFinder = find.byType(GridView);
+      expect(gridViewFinder, findsOneWidget);
 
       // Verify 81 cells with borders
       final containerFinder = find.byWidgetPredicate(
@@ -74,7 +81,10 @@ void main() {
             widget.decoration is BoxDecoration &&
             (widget.decoration as BoxDecoration).border != null,
       );
-      expect(containerFinder, findsNWidgets(81));
+      expect(
+        find.descendant(of: gridViewFinder, matching: containerFinder),
+        findsNWidgets(81),
+      );
     });
 
     // T074: Full user flow test
@@ -84,16 +94,20 @@ void main() {
       await tester.pumpAndSettle();
 
       // Step 1: Verify default square (order 1)
-      expect(find.text('Latin Square Display'), findsOneWidget);
+      expect(find.text('Latin Squares Display'), findsOneWidget);
       
       // Step 2: Enter order 3
       final textFieldFinder = find.byType(TextField);
       await tester.enterText(textFieldFinder, '3');
       await tester.pumpAndSettle();
 
+      final gridViewFinder = find.byType(GridView);
+      expect(gridViewFinder, findsOneWidget);
+
       // Step 3: Verify new square displayed
       for (int i = 1; i <= 9; i++) {
-        expect(find.text('$i'), findsNWidgets(9));
+        expect(find.descendant(of: gridViewFinder, matching: find.text('$i')),
+            findsNWidgets(9),);
       }
 
       // Step 4: Enter order 7
@@ -102,7 +116,8 @@ void main() {
 
       // Step 5: Verify another different square
       for (int i = 1; i <= 9; i++) {
-        expect(find.text('$i'), findsNWidgets(9));
+        expect(find.descendant(of: gridViewFinder, matching: find.text('$i')),
+            findsNWidgets(9),);
       }
 
       // Step 6: Test invalid input (0)
@@ -126,7 +141,8 @@ void main() {
       // Verify error cleared and square displayed
       expect(find.text('Number must be between 1 and 9'), findsNothing);
       for (int i = 1; i <= 9; i++) {
-        expect(find.text('$i'), findsNWidgets(9));
+        expect(find.descendant(of: gridViewFinder, matching: find.text('$i')),
+            findsNWidgets(9),);
       }
     });
 
@@ -136,6 +152,9 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
+      final gridViewFinder = find.byType(GridView);
+      expect(gridViewFinder, findsOneWidget);
+
       // Generate square with order 5
       final textFieldFinder = find.byType(TextField);
       await tester.enterText(textFieldFinder, '5');
@@ -144,7 +163,8 @@ void main() {
       // Store first set of values (read from UI would be complex, so we trust generator tests)
       // Just verify the square is valid
       for (int i = 1; i <= 9; i++) {
-        expect(find.text('$i'), findsNWidgets(9));
+        expect(find.descendant(of: gridViewFinder, matching: find.text('$i')),
+            findsNWidgets(9),);
       }
 
       // Change to different order
@@ -157,7 +177,8 @@ void main() {
 
       // Square should still be valid (determinism verified by unit tests)
       for (int i = 1; i <= 9; i++) {
-        expect(find.text('$i'), findsNWidgets(9));
+        expect(find.descendant(of: gridViewFinder, matching: find.text('$i')),
+            findsNWidgets(9),);
       }
     });
   });
