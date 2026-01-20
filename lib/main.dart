@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Latin Squares',
+      title: 'Latin Squares Display',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
       theme: ThemeData(
@@ -107,7 +107,7 @@ class _LatinSquareScreenState extends State<LatinSquareScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Latin Squares Demonstration'),
+        title: const Text('Latin Squares Display'),
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
