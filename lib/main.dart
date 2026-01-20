@@ -141,9 +141,9 @@ class _LatinSquareScreenState extends State<LatinSquareScreen> {
           focusNode: _focusNode,
           autofocus: true,
           onKeyEvent: (node, event) {
-            if (event is KeyDownEvent) {
+            if (event is KeyDownEvent || event is KeyRepeatEvent) {
               const scrollAmount = 50.0;
-              if (event.logicalKey.keyLabel == 'Arrow Down') {
+              if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
                 _scrollController.jumpTo(
                   (_scrollController.offset + scrollAmount).clamp(
                     0.0,
@@ -151,7 +151,7 @@ class _LatinSquareScreenState extends State<LatinSquareScreen> {
                   ),
                 );
                 return KeyEventResult.handled;
-              } else if (event.logicalKey.keyLabel == 'Arrow Up') {
+              } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
                 _scrollController.jumpTo(
                   (_scrollController.offset - scrollAmount).clamp(
                     0.0,
